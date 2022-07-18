@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
     margin: 4,
     borderRadius: 28,
     overflow: "hidden",
+    width: "45%",
   },
   buttonInnerContainer: {
     backgroundColor: "#72063c",
