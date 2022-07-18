@@ -42,8 +42,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 32,
     fontWeight: "bold",
-    color: "#ddb52f",
-    borderBottomColor: "#ddb52f",
+    color: "#FCA310",
+    borderBottomColor: "#FCA310",
     borderBottomWidth: 2, // needed to vizualize the border
   },
   buttonsContainer: {
