@@ -1,7 +1,10 @@
 import { useState } from "react";
-import { TextInput, View, StyleSheet, Alert } from "react-native";
+import { TextInput, View, StyleSheet, Alert, Text } from "react-native";
 import { PrimaryButton } from "../components/ui/PrimaryButton";
+import { Title } from "../components/ui/Title";
 import { Colors } from "../constants/Colors";
+import { Card } from "../components/ui/Card";
+import { InstructionText } from "../components/ui/InstructionText";
 
 export const StartGameScreen = ({ onPickNumber }) => {
 
@@ -30,38 +33,33 @@ export const StartGameScreen = ({ onPickNumber }) => {
   };
 
   return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        style={styles.numberInput}
-        maxLength={2}
-        keyboardType="number-pad"
-        autoCapitalize="none"
-        autoCorrect={false}
-        onChangeText={numberInputHandler}
-        value={enteredNumber}
-      />
-      <View style={styles.buttonsContainer}>
-        <PrimaryButton onPress={resetInputHandler} >Reset</PrimaryButton>
-        <PrimaryButton onPress={confirmInputHandler} >Confirm</PrimaryButton>
-      </View>
+    <View style={styles.rootContainer}>
+      <Title>Number Guesser</Title>
+      <Card>
+        <InstructionText>Pick a number</InstructionText>
+        <TextInput
+          style={styles.numberInput}
+          maxLength={2}
+          keyboardType="number-pad"
+          autoCapitalize="none"
+          autoCorrect={false}
+          onChangeText={numberInputHandler}
+          value={enteredNumber}
+        />
+        <View style={styles.buttonsContainer}>
+          <PrimaryButton onPress={resetInputHandler} >Reset</PrimaryButton>
+          <PrimaryButton onPress={confirmInputHandler} >Confirm</PrimaryButton>
+        </View>
+      </Card>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  inputContainer: {
+  rootContainer: {
+    flex: 1,
     marginTop: 100,
-    marginHorizontal: 24,
-    padding: 16,
-    borderRadius: 8,
-    backgroundColor: Colors.primary900,
-    // Shadow for Android
-    elevation: 4,
-    // Shadow for IOS
-    shadowColor: "black",
-    shadowOffset: {width: 0, height: 2},
-    shadowRadius: 6,
-    shadowOpacity: 0.25,
+    alignItems: "center",
   },
   numberInput: {
     alignSelf: "center",
@@ -80,4 +78,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around"
   },
+
 });
