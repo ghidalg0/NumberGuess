@@ -1,4 +1,5 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
+import { Colors } from "../constants/Colors";
 
 export const PrimaryButton = ({ children, onPress }) => { // here, naming onPress the prop is up to me
   return (
@@ -11,7 +12,7 @@ export const PrimaryButton = ({ children, onPress }) => { // here, naming onPres
           styles.buttonInnerContainer
         } // property named pressed, cannot change the name, => boolean = true when pressed
         onPress={onPress}
-        android_ripple={{ color: "#640233" }}
+        android_ripple={{ color: Colors.primary600 }}
       >
         <Text style={styles.buttonText}>{children}</Text>
       </Pressable>
@@ -27,7 +28,7 @@ const styles = StyleSheet.create({
     width: "45%",
   },
   buttonInnerContainer: {
-    backgroundColor: "#72063c",
+    backgroundColor: Colors.primary500,
     paddingVertical: 8,
     paddingHorizontal: 16,
     elevation: 2, //only on Android
