@@ -35,7 +35,7 @@ export const GameScreen = ({ userNumber, onGameOver }) => {
 
   useEffect(() => {
     if (currentGuess === userNumber) {
-      onGameOver();
+      onGameOver(guessRounds.length);
     };
   }, [currentGuess, userNumber, onGameOver]);
 
@@ -86,6 +86,7 @@ export const GameScreen = ({ userNumber, onGameOver }) => {
             <GuessLogItem roundNumber={guessRoundsListLength - itemData.index} guess={itemData.item} />
           }
           keyExtractor={(item) => item}
+
         />
       </View>
     </View>
@@ -105,6 +106,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   listContainer: {
-    marginTop: 16,
+    padding: 16,
+    flex: 1,
   },
 });
