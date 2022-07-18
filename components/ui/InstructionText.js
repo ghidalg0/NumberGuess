@@ -9,6 +9,7 @@ export const InstructionText = ({ children, style }) => {
 
 const styles = StyleSheet.create({
   instructionText: {
+    fontFamily: "open-sans",
     color: Colors.secondary500,
     fontSize: 24,
     alignSelf: "center",
