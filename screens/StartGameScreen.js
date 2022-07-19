@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { TextInput, View, StyleSheet, Alert, useWindowDimensions } from "react-native";
+import {
+  TextInput,
+  View,
+  StyleSheet,
+  Alert,
+  useWindowDimensions,
+  KeyboardAvoidingView,
+  ScrollView,
+} from "react-native";
 import { PrimaryButton } from "../components/ui/PrimaryButton";
 import { Title } from "../components/ui/Title";
 import { Colors } from "../constants/Colors";
@@ -37,31 +45,38 @@ export const StartGameScreen = ({ onPickNumber }) => {
   const marginTopDistance = height < 400 ? 30 : 100; // allows marginTop to adjust even when started on portrait and then rotate to landscape which is not the case if done in styles directly as styles load only on mount.
 
   return (
-    <View style={[styles.rootContainer, {marginTop: marginTopDistance}]}>
-      <Title>Number Guesser</Title>
-      <Card>
-        <InstructionText>Pick a number</InstructionText>
-        <TextInput
-          style={styles.numberInput}
-          maxLength={2}
-          keyboardType="number-pad"
-          autoCapitalize="none"
-          autoCorrect={false}
-          onChangeText={numberInputHandler}
-          value={enteredNumber}
-        />
-        <View style={styles.buttonsContainer}>
-          <PrimaryButton onPress={resetInputHandler} >Reset</PrimaryButton>
-          <PrimaryButton onPress={confirmInputHandler} >Confirm</PrimaryButton>
+    <ScrollView style={styles.screen}>
+      <KeyboardAvoidingView style={styles.screen} behavior="position">
+        <View style={[styles.rootContainer, {marginTop: marginTopDistance}]}>
+          <Title>Number Guesser</Title>
+          <Card>
+            <InstructionText>Pick a number</InstructionText>
+            <TextInput
+              style={styles.numberInput}
+              maxLength={2}
+              keyboardType="number-pad"
+              autoCapitalize="none"
+              autoCorrect={false}
+              onChangeText={numberInputHandler}
+              value={enteredNumber}
+            />
+            <View style={styles.buttonsContainer}>
+              <PrimaryButton onPress={resetInputHandler} >Reset</PrimaryButton>
+              <PrimaryButton onPress={confirmInputHandler} >Confirm</PrimaryButton>
+            </View>
+          </Card>
         </View>
-      </Card>
-    </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 }
 
 // const deviceHeight = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+  },
   rootContainer: {
     flex: 1,
     // marginTop: deviceHeight < 400 ? 30 : 100,
