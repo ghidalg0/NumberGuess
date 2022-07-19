@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TextInput, View, StyleSheet, Alert, Text } from "react-native";
+import { TextInput, View, StyleSheet, Alert, useWindowDimensions } from "react-native";
 import { PrimaryButton } from "../components/ui/PrimaryButton";
 import { Title } from "../components/ui/Title";
 import { Colors } from "../constants/Colors";
@@ -9,6 +9,8 @@ import { InstructionText } from "../components/ui/InstructionText";
 export const StartGameScreen = ({ onPickNumber }) => {
 
   const [enteredNumber, setEnteredNumber] = useState(""); // use string since TextInput yields a string from user input !!
+
+  const {width, height} = useWindowDimensions();
 
   const numberInputHandler = (inputText) => {
     setEnteredNumber(inputText);
@@ -32,8 +34,10 @@ export const StartGameScreen = ({ onPickNumber }) => {
     onPickNumber(chosenNumber);
   };
 
+  const marginTopDistance = height < 400 ? 30 : 100; // allows marginTop to adjust even when started on portrait and then rotate to landscape which is not the case if done in styles directly as styles load only on mount.
+
   return (
-    <View style={styles.rootContainer}>
+    <View style={[styles.rootContainer, {marginTop: marginTopDistance}]}>
       <Title>Number Guesser</Title>
       <Card>
         <InstructionText>Pick a number</InstructionText>
@@ -55,10 +59,12 @@ export const StartGameScreen = ({ onPickNumber }) => {
   );
 }
 
+// const deviceHeight = Dimensions.get("window").height;
+
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    marginTop: 100,
+    // marginTop: deviceHeight < 400 ? 30 : 100,
     alignItems: "center",
   },
   numberInput: {
@@ -78,5 +84,4 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around"
   },
-
 });
