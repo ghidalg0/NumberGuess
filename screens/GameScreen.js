@@ -85,7 +85,7 @@ export const GameScreen = ({ userNumber, onGameOver }) => {
           renderItem={(itemData) =>
             <GuessLogItem roundNumber={guessRoundsListLength - itemData.index} guess={itemData.item} />
           }
-          keyExtractor={(item) => item}
+          keyExtractor={(item) => item.item}
 
         />
       </View>
@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 24,
+    alignItems: "center",
   },
   buttonsContainer: {
     flexDirection: "row",
