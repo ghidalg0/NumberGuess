@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, StyleSheet, Alert, FlatList, Text } from "react-native";
+import { View, StyleSheet, Alert, FlatList, useWindowDimensions } from "react-native";
 import { NumberContainer } from "../components/game/NumberContainer";
 import { PrimaryButton } from "../components/ui/PrimaryButton";
 import { Title } from "../components/ui/Title";
@@ -21,6 +21,8 @@ let minBoundary = 1;
 let maxBoundary = 100;
 
 export const GameScreen = ({ userNumber, onGameOver }) => {
+
+  const {width, height} = useWindowDimensions();
 
   const initialGuess = generateRandomBetween(1, 100, userNumber);
 
@@ -62,11 +64,9 @@ export const GameScreen = ({ userNumber, onGameOver }) => {
 
   const guessRoundsListLength = guessRounds.length;
 
-  return (
-    <View style={styles.screen}>
-      <Title>Opponent's Guess</Title>
+  let content = (
+    <>
       <NumberContainer>{currentGuess}</NumberContainer>
-
       <Card>
         <InstructionText style={styles.instructionTextObject} >Higher or lower ?</InstructionText>
         <View style={styles.buttonsContainer}>
@@ -78,6 +78,32 @@ export const GameScreen = ({ userNumber, onGameOver }) => {
           </PrimaryButton>
         </View>
       </Card>
+    </>
+  );
+
+  if (width > 500) {
+    content = (
+      <>
+        {/* <InstructionText style={styles.instructionTextObject} >Higher or lower ?</InstructionText> */}
+        <View>
+          <NumberContainer>{currentGuess}</NumberContainer>
+          <View style={styles.buttonsContainer}>
+          <PrimaryButton onPress={nextGuessHandler.bind(this, "lower")} >
+            <Ionicons name="remove" size={24} color={"#fff"}/>
+          </PrimaryButton>
+          <PrimaryButton onPress={nextGuessHandler.bind(this, "greater")} >
+            <Ionicons name="add" size={24} color={"#fff"}/>
+          </PrimaryButton>
+        </View>
+        </View>
+      </>
+    );
+  }
+
+  return (
+    <View style={styles.screen}>
+      <Title>Opponent's Guess</Title>
+      {content}
       <View style={styles.listContainer}>
         {/* {guessRounds.map(guessRound => <Text key={guessRound}>{guessRound}</Text>)} rather use flatlist */}
         <FlatList
@@ -85,7 +111,7 @@ export const GameScreen = ({ userNumber, onGameOver }) => {
           renderItem={(itemData) =>
             <GuessLogItem roundNumber={guessRoundsListLength - itemData.index} guess={itemData.item} />
           }
-          keyExtractor={(item) => item.item}
+          keyExtractor={(item) => {item}}
 
         />
       </View>
